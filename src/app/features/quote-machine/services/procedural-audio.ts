@@ -22,12 +22,16 @@ export class ProceduralAudioGenerator {
     this.activeOscillators.forEach(osc => {
       try {
         osc.stop();
-      } catch (e) {}
+      } catch {
+        // Oscillator already stopped
+      }
     });
     this.activeSources.forEach(src => {
       try {
         src.stop();
-      } catch (e) {}
+      } catch {
+        // Source already stopped
+      }
     });
     this.intervals.forEach(id => {
       clearInterval(id);
