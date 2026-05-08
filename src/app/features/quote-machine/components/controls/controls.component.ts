@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 import { AudioControlComponent } from '../audio-control/audio-control.component';
 import { ScreenshotButtonComponent } from '../screenshot-button/screenshot-button.component';
+import { ShareButtonComponent } from '../share-button/share-button.component';
 
 @Component({
   selector: 'app-controls',
@@ -11,6 +12,7 @@ import { ScreenshotButtonComponent } from '../screenshot-button/screenshot-butto
     CommonModule,
     ThemeSwitcherComponent,
     AudioControlComponent,
+    ShareButtonComponent,
     ScreenshotButtonComponent,
   ],
   templateUrl: './controls.component.html',

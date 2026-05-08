@@ -1,4 +1,4 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Quote } from '../models/quote.model';
 
@@ -20,6 +20,25 @@ export class QuoteService {
 
   constructor() {
     this.loadLocalQuotes();
+    this.readFromUrl();
+
+    effect(() => {
+      const idx = this.currentIndex();
+      const url = new URL(window.location.href);
+      url.searchParams.set('q', String(idx));
+      window.history.replaceState(null, '', url.toString());
+    });
+  }
+
+  private readFromUrl(): void {
+    const params = new URLSearchParams(window.location.search);
+    const qParam = params.get('q');
+    if (qParam) {
+      const index = parseInt(qParam, 10);
+      if (!isNaN(index) && index >= 0) {
+        this.currentIndex.set(index);
+      }
+    }
   }
 
   private loadLocalQuotes(): void {

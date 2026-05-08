@@ -1,0 +1,67 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/velora/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/velora/favicon.ico",
+          "/velora/index.html",
+          "/velora/**/*.css",
+          "/velora/**/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "lazy",
+      "resources": {
+        "files": [
+          "/velora/assets/**",
+          "/velora/**/**.svg",
+          "/velora/**/**.png",
+          "/velora/**/**.gif",
+          "/velora/**/**.jpg",
+          "/velora/**/**.jpeg",
+          "/velora/**/**.webp",
+          "/velora/**/**.woff",
+          "/velora/**/**.woff2",
+          "/velora/**/**.ttf",
+          "/velora/**/**.mp3",
+          "/velora/**/**.wav",
+          "/velora/**/**.json"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-quotes",
+      "urls": [
+        "/velora/assets/data/quotes.json"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxAge": "30d",
+        "maxSize": 5
+      }
+    }
+  ],
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^(?:.*/)?[^/?\\.]+(?:\\.[^/?\\.]+){2,}(?:[/?].*)?$"
+    },
+    {
+      "positive": false,
+      "regex": "^(?:.*/)?[^/?\\.]+(?:\\.[^/?\\.]+)(?:[/?].*)?$"
+    }
+  ]
+}
