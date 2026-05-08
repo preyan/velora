@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun add *)",
+      "Bash(ng new *)",
+      "Bash(mv velora/* .)",
+      "Bash(mv velora/.* .)",
+      "Bash(ng add *)",
+      "Bash(ng generate *)",
+      "Bash(bun run *)",
+      "Bash(git add *)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git commit -m 'feat: initialize Velora Angular project with Phase 1 foundation *)",
+      "Bash(git commit -m 'chore: update .gitignore with comprehensive patterns *)",
+      "Bash(rm -f .git/index.lock)",
+      "Bash(git commit *)",
+      "Bash(git checkout *)",
+      "Bash(ng lint *)"
+    ]
+  }
+}

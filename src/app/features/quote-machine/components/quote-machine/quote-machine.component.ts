@@ -1,11 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BackgroundComponent } from '../background/background.component';
+import { QuoteDisplayComponent } from '../quote-display/quote-display.component';
+import { QuoteService } from '../../services/quote.service';
 
 @Component({
   selector: 'app-quote-machine',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BackgroundComponent, QuoteDisplayComponent],
   templateUrl: './quote-machine.component.html',
   styleUrl: './quote-machine.component.scss',
 })
-export class QuoteMachineComponent {}
+export class QuoteMachineComponent {
+  protected quoteService = inject(QuoteService);
+
+  protected next(): void {
+    this.quoteService.next();
+  }
+
+  protected previous(): void {
+    this.quoteService.previous();
+  }
+}

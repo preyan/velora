@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  will-change: opacity, transform;
+}
+
+.quote-author {
+  font-size: var(--font-size-author);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  margin: 1.5rem 0 0 0;
+  text-align: center;
+  text-transform: uppercase;
+}

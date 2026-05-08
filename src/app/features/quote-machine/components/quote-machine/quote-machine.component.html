@@ -1,3 +1,12 @@
-<div class="quote-machine">
-  <p>Velora — Quote Machine</p>
+<app-background></app-background>
+
+<app-quote-display [quote]="quoteService.currentQuote()"></app-quote-display>
+
+<div class="controls">
+  <button class="control-btn" (click)="previous()" aria-label="Previous quote">
+    ← Prev
+  </button>
+  <button class="control-btn" (click)="next()" aria-label="Next quote">
+    Next →
+  </button>
 </div>
