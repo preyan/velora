@@ -2,8 +2,13 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Quote, ThemeName } from '../models/quote.model';
 
-interface QuotableResponse {
-  results: Array<{ content: string; author: string }>;
+interface ZenQuotesResponse {
+  q: string;
+  a: string;
+}
+
+interface QuoteGardenResponse {
+  data: Array<{ quoteText: string; quoteAuthor: string }>;
 }
 
 @Injectable({
@@ -28,18 +33,40 @@ export class QuoteService {
   }
 
   private loadQuotes(): void {
-    this.http.get<QuotableResponse>('https://api.quotable.io/quotes?limit=50').subscribe({
+    this.loadZenQuotes();
+  }
+
+  private loadZenQuotes(): void {
+    this.http.get<ZenQuotesResponse[]>('https://zenquotes.io/api/quotes').subscribe({
       next: (data) => {
-        const quotes = data.results.map((q, idx) => ({
-          text: q.content,
-          author: q.author.replace(/, type.*/, ''),
+        const quotes = data.slice(0, 50).map((q, idx) => ({
+          text: q.q,
+          author: q.a.replace(/,\s*type.*/, ''),
           theme: this.themes[idx % this.themes.length],
         }));
         this.quotes.set(quotes);
         this.isLoading.set(false);
       },
-      error: (err) => {
-        console.warn('Failed to fetch from API, using local quotes', err);
+      error: () => {
+        console.warn('ZenQuotes API failed, trying Quote Garden API');
+        this.loadQuoteGarden();
+      },
+    });
+  }
+
+  private loadQuoteGarden(): void {
+    this.http.get<QuoteGardenResponse>('https://quote-garden.onrender.com/api/v3/quotes').subscribe({
+      next: (data) => {
+        const quotes = data.data.slice(0, 50).map((q, idx) => ({
+          text: q.quoteText,
+          author: q.quoteAuthor.replace(/,\s*type.*/, ''),
+          theme: this.themes[idx % this.themes.length],
+        }));
+        this.quotes.set(quotes);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        console.warn('Quote Garden API failed, using local quotes');
         this.loadLocalQuotes();
       },
     });
