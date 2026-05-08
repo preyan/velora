@@ -7,6 +7,7 @@ import { ProceduralAudioGenerator, AudioTrack } from './procedural-audio';
 export class AudioService {
   private context: AudioContext | null = null;
   private gainNode: GainNode | null = null;
+  private masterGain: GainNode | null = null;
   private generator: ProceduralAudioGenerator | null = null;
   private currentTrackNode: AudioNode | null = null;
   private isInitialized = false;
@@ -14,12 +15,22 @@ export class AudioService {
   readonly isMuted = signal<boolean>(
     localStorage.getItem('velora-muted') === 'true'
   );
+  readonly volume = signal<number>(
+    parseFloat(localStorage.getItem('velora-volume') ?? '1')
+  );
   readonly currentTrack = signal<AudioTrack>('rain');
   readonly isPlaying = signal<boolean>(false);
 
   constructor() {
     effect(() => {
       localStorage.setItem('velora-muted', this.isMuted() ? 'true' : 'false');
+    });
+
+    effect(() => {
+      localStorage.setItem('velora-volume', this.volume().toString());
+      if (this.gainNode) {
+        this.gainNode.gain.value = this.isMuted() ? 0 : this.volume();
+      }
     });
 
     // Initialize audio on first user gesture
@@ -47,7 +58,7 @@ export class AudioService {
       this.context = new AudioContextClass();
       this.gainNode = this.context.createGain();
       this.gainNode.connect(this.context.destination);
-      this.gainNode.gain.value = this.isMuted() ? 0 : 1;
+      this.gainNode.gain.value = this.isMuted() ? 0 : this.volume();
 
       this.generator = new ProceduralAudioGenerator(this.context);
       this.isInitialized = true;
@@ -60,10 +71,14 @@ export class AudioService {
   private setupProceduralAudio(): void {
     if (!this.generator || !this.gainNode) return;
 
-    const track = this.currentTrack();
-    const masterGain = this.generator.getMasterGain();
-    masterGain.connect(this.gainNode);
+    this.masterGain = this.generator.getMasterGain();
+    this.masterGain.connect(this.gainNode);
 
+    const track = this.currentTrack();
+    this.startTrack(track);
+  }
+
+  private startTrack(track: AudioTrack): void {
     this.currentTrackNode = this.generateTrack(track);
   }
 
@@ -111,7 +126,7 @@ export class AudioService {
     }
 
     this.isPlaying.set(true);
-    this.fade(this.isMuted() ? 0 : 1, 0.5);
+    this.fade(this.isMuted() ? 0 : this.volume(), 0.5);
   }
 
   stop(): void {
@@ -136,9 +151,18 @@ export class AudioService {
     const wasPlaying = this.isPlaying();
     this.currentTrack.set(track);
 
-    if (wasPlaying) {
-      this.fade(this.isMuted() ? 0 : 1, 0.5);
+    if (wasPlaying && this.context) {
+      this.context.close();
+      this.isInitialized = false;
+      this.context = null;
+      this.gainNode = null;
+      this.masterGain = null;
+      this.initialize();
     }
+  }
+
+  setVolume(value: number): void {
+    this.volume.set(Math.max(0, Math.min(1, value)));
   }
 
   private fade(targetGain: number, duration = 0.5): void {

@@ -6,7 +6,7 @@ import { ThemeName } from '../models/quote.model';
   providedIn: 'root',
 })
 export class ThemeService {
-  readonly themes: ThemeName[] = ['cosmic', 'lofi-rain', 'noir', 'dream-neon'];
+  readonly themes: ThemeName[] = ['cosmic', 'lofi-rain', 'noir', 'dream-neon', 'light'];
   readonly currentTheme = signal<ThemeName>(
     (localStorage.getItem('velora-theme') as ThemeName) ?? 'cosmic'
   );

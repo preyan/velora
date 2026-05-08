@@ -31,6 +31,30 @@
   }
 }
 
+.volume-slider {
+  width: 100px;
+  height: 4px;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+  background: var(--color-text-secondary);
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    accent-color: var(--color-accent-bright);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
 .audio-select {
   font-size: var(--font-size-ui);
   color: var(--color-text-primary);

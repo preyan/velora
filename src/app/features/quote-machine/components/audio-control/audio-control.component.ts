@@ -30,4 +30,9 @@ export class AudioControlComponent {
     const track = select.value as 'rain' | 'piano' | 'cosmic';
     this.audioService.switchTrack(track);
   }
+
+  protected onVolumeChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.audioService.setVolume(parseFloat(input.value));
+  }
 }
