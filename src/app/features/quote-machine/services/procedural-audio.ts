@@ -177,6 +177,8 @@ export class ProceduralAudioGenerator {
       osc.connect(oscGain);
       oscGain.connect(gain);
       osc.start();
+
+      this.activeOscillators.push(osc);
     });
 
     return gain;
@@ -226,6 +228,8 @@ export class ProceduralAudioGenerator {
 
       osc.start();
       lfo.start();
+
+      this.activeOscillators.push(osc, lfo);
     });
 
     return gain;
@@ -263,6 +267,8 @@ export class ProceduralAudioGenerator {
 
       osc.start(0);
       lfo.start(0);
+
+      this.activeOscillators.push(osc, lfo);
     });
 
     return gain;
