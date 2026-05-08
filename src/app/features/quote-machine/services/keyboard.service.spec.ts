@@ -105,7 +105,7 @@ describe('KeyboardService', () => {
     input.focus();
 
     const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
-    document.dispatchEvent(event);
+    input.dispatchEvent(event);
 
     expect(quoteService.next).not.toHaveBeenCalled();
     document.body.removeChild(input);
@@ -118,7 +118,7 @@ describe('KeyboardService', () => {
     textarea.focus();
 
     const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
-    document.dispatchEvent(event);
+    textarea.dispatchEvent(event);
 
     expect(quoteService.next).not.toHaveBeenCalled();
     document.body.removeChild(textarea);

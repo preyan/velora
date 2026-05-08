@@ -53,7 +53,9 @@ describe('QuoteService', () => {
   });
 
   it('should return null for currentQuote before loading', () => {
+    const req = httpMock.expectOne('/assets/data/quotes.json');
     expect(service.currentQuote()).toBeNull();
+    req.flush(mockQuotes);
   });
 
   it('should return current quote after loading', (done) => {

@@ -16,7 +16,12 @@
       "Bash(rm -f .git/index.lock)",
       "Bash(git commit *)",
       "Bash(git checkout *)",
-      "Bash(ng lint *)"
+      "Bash(ng lint *)",
+      "Bash(gh repo *)",
+      "Bash(git stash *)",
+      "Bash(Test-Path *)",
+      "Bash(gh workflow *)",
+      "Bash(gh run *)"
     ]
   }
 }
