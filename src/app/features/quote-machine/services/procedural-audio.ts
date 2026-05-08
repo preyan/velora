@@ -40,22 +40,22 @@ export class ProceduralAudioGenerator {
   }
 
   createRain(): AudioNode {
-    return this.createFilteredNoise(800, 0.3, 'highpass');
+    return this.createFilteredNoise(600, 0.25, 'highpass');
   }
 
   createWind(): AudioNode {
-    return this.createFilteredNoise(200, 0.25, 'lowpass');
+    return this.createFilteredNoise(150, 0.2, 'lowpass');
   }
 
   createOcean(): AudioNode {
     const gain = this.context.createGain();
-    gain.gain.value = 0.25;
+    gain.gain.value = 0.2;
     gain.connect(this.masterGain);
 
-    const waves = this.createFilteredNoise(300, 0.4, 'highpass');
+    const waves = this.createFilteredNoise(250, 0.35, 'highpass');
     waves.connect(gain);
 
-    const lowFreq = this.createSineOscillator(0.5, 50, 0.15);
+    const lowFreq = this.createSineOscillator(0.3, 35, 0.12);
     lowFreq.connect(gain);
 
     return gain;
@@ -95,9 +95,9 @@ export class ProceduralAudioGenerator {
   }
 
   createPiano(): AudioNode {
-    const notes = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88];
+    const notes = [130.81, 146.83, 164.81, 174.61, 196.0, 220.0, 246.94];
     const gain = this.context.createGain();
-    gain.gain.value = 0.2;
+    gain.gain.value = 0.15;
     gain.connect(this.masterGain);
 
     const playNote = (frequency: number, startTime: number, duration: number) => {
@@ -107,8 +107,9 @@ export class ProceduralAudioGenerator {
       osc.frequency.value = frequency;
       osc.type = 'sine';
 
-      env.gain.setValueAtTime(0.4, startTime);
-      env.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+      env.gain.setValueAtTime(0.1, startTime);
+      env.gain.linearRampToValueAtTime(0.25, startTime + 0.2);
+      env.gain.exponentialRampToValueAtTime(0.02, startTime + duration);
 
       osc.connect(env);
       env.connect(gain);
@@ -119,8 +120,8 @@ export class ProceduralAudioGenerator {
 
     const id = setInterval(() => {
       const note = notes[Math.floor(Math.random() * notes.length)];
-      playNote(note, this.context.currentTime + 0.1, 2);
-    }, 3000);
+      playNote(note, this.context.currentTime + 0.1, 4);
+    }, 5000);
 
     this.intervals.push(id);
     return gain;
@@ -128,33 +129,30 @@ export class ProceduralAudioGenerator {
 
   createBells(): AudioNode {
     const gain = this.context.createGain();
-    gain.gain.value = 0.15;
+    gain.gain.value = 0.1;
     gain.connect(this.masterGain);
 
     const playBell = (frequency: number) => {
       const osc = this.context.createOscillator();
       const env = this.context.createGain();
-      const filter = this.context.createBiquadFilter();
 
       osc.frequency.value = frequency;
-      osc.type = 'triangle';
-      filter.type = 'highpass';
-      filter.frequency.value = frequency * 2;
+      osc.type = 'sine';
 
-      env.gain.setValueAtTime(0.5, this.context.currentTime);
-      env.gain.exponentialRampToValueAtTime(0.01, this.context.currentTime + 4);
+      env.gain.setValueAtTime(0.08, this.context.currentTime);
+      env.gain.linearRampToValueAtTime(0.15, this.context.currentTime + 0.3);
+      env.gain.exponentialRampToValueAtTime(0.005, this.context.currentTime + 8);
 
-      osc.connect(filter);
-      filter.connect(env);
+      osc.connect(env);
       env.connect(gain);
 
       osc.start();
-      osc.stop(this.context.currentTime + 4);
+      osc.stop(this.context.currentTime + 8);
     };
 
     const id = setInterval(() => {
-      playBell(440 + Math.random() * 200);
-    }, 5000);
+      playBell(200 + Math.random() * 100);
+    }, 8000);
 
     this.intervals.push(id);
     return gain;
@@ -190,13 +188,13 @@ export class ProceduralAudioGenerator {
 
   createMeditation(): AudioNode {
     const gain = this.context.createGain();
-    gain.gain.value = 0.18;
+    gain.gain.value = 0.14;
     gain.connect(this.masterGain);
 
-    const slowBowl = this.createSineOscillator(0.2, 136.1, 0.2);
+    const slowBowl = this.createSineOscillator(0.15, 110, 0.16);
     slowBowl.connect(gain);
 
-    const medNoise = this.createFilteredNoise(600, 0.15, 'highpass');
+    const medNoise = this.createFilteredNoise(400, 0.1, 'highpass');
     medNoise.connect(gain);
 
     return gain;
@@ -276,13 +274,13 @@ export class ProceduralAudioGenerator {
 
   createFireplace(): AudioNode {
     const gain = this.context.createGain();
-    gain.gain.value = 0.22;
+    gain.gain.value = 0.18;
     gain.connect(this.masterGain);
 
-    const crackle = this.createFilteredNoise(4000, 0.25, 'highpass');
+    const crackle = this.createFilteredNoise(2000, 0.18, 'highpass');
     crackle.connect(gain);
 
-    const lowRumble = this.createSineOscillator(0.5, 60, 0.15);
+    const lowRumble = this.createSineOscillator(0.3, 45, 0.12);
     lowRumble.connect(gain);
 
     return gain;
@@ -360,29 +358,30 @@ export class ProceduralAudioGenerator {
 
   private createBirdSounds(): AudioNode {
     const gain = this.context.createGain();
-    gain.gain.value = 0.15;
+    gain.gain.value = 0.08;
     gain.connect(this.masterGain);
 
     const chirp = () => {
       const osc = this.context.createOscillator();
       const env = this.context.createGain();
 
-      osc.frequency.setValueAtTime(2000 + Math.random() * 2000, this.context.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(800, this.context.currentTime + 0.3);
+      osc.frequency.setValueAtTime(1200 + Math.random() * 800, this.context.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(600, this.context.currentTime + 0.4);
       osc.type = 'sine';
 
-      env.gain.setValueAtTime(0.3, this.context.currentTime);
-      env.gain.exponentialRampToValueAtTime(0.0001, this.context.currentTime + 0.3);
+      env.gain.setValueAtTime(0.1, this.context.currentTime);
+      env.gain.linearRampToValueAtTime(0.12, this.context.currentTime + 0.1);
+      env.gain.exponentialRampToValueAtTime(0.0001, this.context.currentTime + 0.4);
 
       osc.connect(env);
       env.connect(gain);
 
       osc.start();
-      osc.stop(this.context.currentTime + 0.3);
+      osc.stop(this.context.currentTime + 0.4);
     };
 
     const scheduleNextChirp = () => {
-      const delay = 2000 + Math.random() * 3000;
+      const delay = 3000 + Math.random() * 4000;
       const id = setTimeout(() => {
         chirp();
         scheduleNextChirp();
