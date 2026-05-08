@@ -2,6 +2,13 @@
 
 > A cinematic quote experience. Not a generator.
 
+[![Angular](https://img.shields.io/badge/Angular-21-red?style=flat-square&logo=angular)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![ESLint](https://img.shields.io/badge/ESLint-Clean-brightgreen?style=flat-square&logo=eslint)](https://eslint.org/)
+[![Bundle Size](https://img.shields.io/badge/Bundle-81KB-brightgreen?style=flat-square)](https://github.com/preyan/velora)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Phase%203%20✓-success?style=flat-square)](https://github.com/preyan/velora)
+
 **Velora** is a fullscreen, atmospheric quote app that feels like an interactive film. Every element—from animations to ambient audio—is designed to evoke emotion and intention.
 
 Inspired by **Interstellar**, **Apple** design, and **A24** moodboards.
@@ -27,9 +34,9 @@ The app should feel:
 - 🎬 **Cinematic Animations** — Blur-to-focus text, staggered author reveal
 - 🎨 **4 Themes** — Cosmic, Lo-fi Rain, Noir, Dream Neon (animated gradients)
 - 🎵 **Ambient Audio** — Rain, piano, cosmic tracks with smooth fading
-- ⌨️ **Accessible** — Keyboard nav, ARIA labels, reduced-motion support
+- ⌨️ **Accessible** — Keyboard nav, ARIA labels, reduced-motion support ![WCAG AAA](https://img.shields.io/badge/WCAG-AAA-blue?style=flat)
 - 💾 **Persistent** — Theme & audio preferences saved to localStorage
-- 📱 **Responsive** — Mobile-first, fullscreen experience
+- 📱 **Responsive** — Mobile-first, fullscreen experience ![Mobile First](https://img.shields.io/badge/Mobile-First-brightgreen?style=flat)
 
 ### Roadmap
 - 📸 Screenshot export
@@ -61,14 +68,14 @@ bun run start
 
 ## 🏗️ Tech Stack
 
-| Layer | Tech |
-|-------|------|
-| **Framework** | Angular 21 (standalone components, signals) |
-| **Styling** | SCSS + CSS custom properties (theme tokens) |
-| **Animations** | Angular Animations + CSS keyframes |
-| **Audio** | Web Audio API + HTML5 Audio |
-| **State** | Angular Signals (no Redux/NgRx) |
-| **Quality** | ESLint, strict TypeScript (no `any`) |
+| Layer | Tech | Badge |
+|-------|------|-------|
+| **Framework** | Angular 21 | ![Angular 21](https://img.shields.io/badge/Angular-21-red?style=flat&logo=angular) |
+| **Styling** | SCSS + CSS Custom Props | ![SCSS](https://img.shields.io/badge/SCSS-Modern-pink?style=flat&logo=sass) |
+| **Animations** | Angular Animations | ![Animations](https://img.shields.io/badge/60fps-Animations-success?style=flat) |
+| **Audio** | Web Audio API | ![Web Audio](https://img.shields.io/badge/Web%20Audio-API-blue?style=flat) |
+| **State** | Angular Signals | ![Signals](https://img.shields.io/badge/Reactive-Signals-brightgreen?style=flat) |
+| **Quality** | ESLint + TypeScript | ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?style=flat) |
 
 ---
 
@@ -152,20 +159,24 @@ bun run test        # Unit tests
 
 ## 📈 Performance
 
-- **Bundle:** 80.87 KB gzipped
-- **Target Frame Rate:** 60fps (all animations)
-- **Lighthouse targets:**
-  - Performance > 90
-  - Accessibility > 95
-  - Best Practices > 95
+| Metric | Target | Badge |
+|--------|--------|-------|
+| **Bundle Size** | < 100KB gzipped | ![Bundle](https://img.shields.io/badge/81KB-brightgreen?style=flat) |
+| **Frame Rate** | 60fps | ![60fps](https://img.shields.io/badge/60fps-success?style=flat) |
+| **Lighthouse Performance** | > 90 | ![Performance](https://img.shields.io/badge/Performance-90+-orange?style=flat) |
+| **Accessibility** | > 95 | ![Accessibility](https://img.shields.io/badge/A11y-95+-blue?style=flat) |
+| **Best Practices** | > 95 | ![Best Practices](https://img.shields.io/badge/Best%20Practices-95+-brightgreen?style=flat) |
 
 ---
 
 ## 🌐 Deployment
 
+[![GitHub Pages](https://img.shields.io/badge/Deployment-GitHub%20Pages-blue?style=flat&logo=github)](https://github.com/preyan/velora)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-Automated-success?style=flat&logo=github-actions)](https://github.com/preyan/velora)
+
 Automatic CI/CD to GitHub Pages on every push to `main`.
 
-**Current:** https://github.com/preyan/velora
+**Repository:** [github.com/preyan/velora](https://github.com/preyan/velora)
 
 **To deploy manually:**
 ```bash
@@ -179,13 +190,13 @@ Base href is `/velora/` for GitHub Pages subpath routing.
 
 ## 📋 Development Phases
 
-| # | Status | Focus |
-|---|--------|-------|
-| 1 | ✅ | Angular scaffold, QuoteService, base layout |
-| 2 | ✅ | Animations, backgrounds, blur-to-focus |
-| 3 | ✅ | Audio engine, theme switcher, controls |
-| 4 | ⏳ | Polish, optimization, Lighthouse tuning |
-| 5 | 🔮 | Testing, docs, deployment automation |
+| Phase | Status | Focus | Badge |
+|-------|--------|-------|-------|
+| **1** | ✅ | Angular scaffold, QuoteService, base layout | ![Phase 1](https://img.shields.io/badge/Phase%201-Complete-success?style=flat) |
+| **2** | ✅ | Animations, backgrounds, blur-to-focus | ![Phase 2](https://img.shields.io/badge/Phase%202-Complete-success?style=flat) |
+| **3** | ✅ | Audio engine, theme switcher, controls | ![Phase 3](https://img.shields.io/badge/Phase%203-Complete-success?style=flat) |
+| **4** | ⏳ | Polish, optimization, Lighthouse tuning | ![Phase 4](https://img.shields.io/badge/Phase%204-In%20Progress-orange?style=flat) |
+| **5** | 🔮 | Testing, docs, deployment automation | ![Phase 5](https://img.shields.io/badge/Phase%205-Planned-lightgrey?style=flat) |
 
 ---
 
