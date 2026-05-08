@@ -7,7 +7,7 @@
 [![ESLint](https://img.shields.io/badge/ESLint-Clean-brightgreen?style=flat-square&logo=eslint)](https://eslint.org/)
 [![Bundle Size](https://img.shields.io/badge/Bundle-81KB-brightgreen?style=flat-square)](https://github.com/preyan/velora)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Phase%204%20✓-success?style=flat-square)](https://github.com/preyan/velora)
+[![Status](https://img.shields.io/badge/Status-Phase%205%20✓-success?style=flat-square)](https://github.com/preyan/velora)
 
 **Velora** is a fullscreen, atmospheric quote app that feels like an interactive film. Every element—from animations to ambient audio—is designed to evoke emotion and intention.
 
@@ -196,7 +196,7 @@ Base href is `/velora/` for GitHub Pages subpath routing.
 | **2** | ✅ | Animations, backgrounds, blur-to-focus | ![Phase 2](https://img.shields.io/badge/Phase%202-Complete-success?style=flat) |
 | **3** | ✅ | Audio engine, theme switcher, controls | ![Phase 3](https://img.shields.io/badge/Phase%203-Complete-success?style=flat) |
 | **4** | ✅ | Screenshot export, keyboard shortcuts, polish | ![Phase 4](https://img.shields.io/badge/Phase%204-Complete-success?style=flat) |
-| **5** | ⏳ | Testing, documentation, deployment automation | ![Phase 5](https://img.shields.io/badge/Phase%205-In%20Progress-orange?style=flat) |
+| **5** | ✅ | Testing, documentation, deployment automation | ![Phase 5](https://img.shields.io/badge/Phase%205-Complete-success?style=flat) |
 
 ---
 

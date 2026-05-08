@@ -76,7 +76,6 @@ describe('AudioService', () => {
   });
 
   it('should listen for click event to initialize audio', () => {
-    const clickEvent = new MouseEvent('click');
     spyOn(document, 'addEventListener');
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
