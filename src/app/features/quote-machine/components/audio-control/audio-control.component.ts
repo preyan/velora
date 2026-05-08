@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AudioService } from '../../services/audio.service';
+import { AudioTrack } from '../../services/procedural-audio';
 
 @Component({
   selector: 'app-audio-control',
@@ -27,8 +28,7 @@ export class AudioControlComponent {
 
   protected onTrackChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    const track = select.value as 'rain' | 'piano' | 'cosmic';
-    this.audioService.switchTrack(track);
+    this.audioService.switchTrack(select.value as AudioTrack);
   }
 
   protected onVolumeChange(event: Event): void {

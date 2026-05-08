@@ -29,6 +29,10 @@ export class AudioService {
       this.updateVolume();
     });
 
+    this.registerInitListeners();
+  }
+
+  private registerInitListeners(): void {
     document.addEventListener('click', () => this.initialize(), { once: true });
     document.addEventListener('keydown', () => this.initialize(), { once: true });
   }
@@ -71,18 +75,11 @@ export class AudioService {
   }
 
   stop(): void {
-    if (!this.context || !this.generator) return;
+    if (!this.generator) return;
 
+    this.generator.stopAll();
     this.generator.getMasterGain().gain.value = 0;
-    setTimeout(() => {
-      if (this.context) {
-        this.context.close();
-      }
-      this.isInitialized = false;
-      this.context = null;
-      this.generator = null;
-      this.isPlaying.set(false);
-    }, 300);
+    this.isPlaying.set(false);
   }
 
   toggleMute(): void {
@@ -94,6 +91,7 @@ export class AudioService {
     this.currentTrack.set(track);
 
     if (this.isInitialized && this.generator) {
+      this.generator.stopAll();
       this.createTrack(track);
     }
   }

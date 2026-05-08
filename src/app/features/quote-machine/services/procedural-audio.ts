@@ -8,11 +8,35 @@ export type AudioTrack =
 export class ProceduralAudioGenerator {
   private context: AudioContext;
   private masterGain: GainNode;
+  private activeOscillators: OscillatorNode[] = [];
+  private activeSources: AudioBufferSourceNode[] = [];
+  private intervals: number[] = [];
 
   constructor(context: AudioContext) {
     this.context = context;
     this.masterGain = context.createGain();
     this.masterGain.connect(context.destination);
+  }
+
+  stopAll(): void {
+    this.activeOscillators.forEach(osc => {
+      try {
+        osc.stop();
+      } catch (e) {}
+    });
+    this.activeSources.forEach(src => {
+      try {
+        src.stop();
+      } catch (e) {}
+    });
+    this.intervals.forEach(id => {
+      clearInterval(id);
+      clearTimeout(id);
+    });
+
+    this.activeOscillators = [];
+    this.activeSources = [];
+    this.intervals = [];
   }
 
   createRain(): AudioNode {
@@ -56,7 +80,7 @@ export class ProceduralAudioGenerator {
     gain.gain.value = 0.2;
     gain.connect(this.masterGain);
 
-    setInterval(() => {
+    const id = setInterval(() => {
       const noise = this.createFilteredNoise(3000, 0.4, 'highpass');
       noise.connect(gain);
 
@@ -66,6 +90,7 @@ export class ProceduralAudioGenerator {
       }, 500);
     }, 8000);
 
+    this.intervals.push(id);
     return gain;
   }
 
@@ -92,13 +117,12 @@ export class ProceduralAudioGenerator {
       osc.stop(startTime + duration);
     };
 
-    let time = this.context.currentTime;
-    setInterval(() => {
+    const id = setInterval(() => {
       const note = notes[Math.floor(Math.random() * notes.length)];
-      playNote(note, time, 2);
-      time += 3;
+      playNote(note, this.context.currentTime + 0.1, 2);
     }, 3000);
 
+    this.intervals.push(id);
     return gain;
   }
 
@@ -128,10 +152,11 @@ export class ProceduralAudioGenerator {
       osc.stop(this.context.currentTime + 4);
     };
 
-    setInterval(() => {
+    const id = setInterval(() => {
       playBell(440 + Math.random() * 200);
     }, 5000);
 
+    this.intervals.push(id);
     return gain;
   }
 
@@ -297,6 +322,7 @@ export class ProceduralAudioGenerator {
     gain.connect(this.masterGain);
 
     source.start(0);
+    this.activeSources.push(source);
     return gain;
   }
 
@@ -322,6 +348,7 @@ export class ProceduralAudioGenerator {
     osc.start();
     lfo.start();
 
+    this.activeOscillators.push(osc, lfo);
     return oscGain;
   }
 
@@ -339,7 +366,7 @@ export class ProceduralAudioGenerator {
       osc.type = 'sine';
 
       env.gain.setValueAtTime(0.3, this.context.currentTime);
-      env.gain.exponentialRampToValueAtTime(0, this.context.currentTime + 0.3);
+      env.gain.exponentialRampToValueAtTime(0.0001, this.context.currentTime + 0.3);
 
       osc.connect(env);
       env.connect(gain);
@@ -348,7 +375,16 @@ export class ProceduralAudioGenerator {
       osc.stop(this.context.currentTime + 0.3);
     };
 
-    setInterval(chirp, 2000 + Math.random() * 3000);
+    const scheduleNextChirp = () => {
+      const delay = 2000 + Math.random() * 3000;
+      const id = setTimeout(() => {
+        chirp();
+        scheduleNextChirp();
+      }, delay);
+      this.intervals.push(id);
+    };
+
+    scheduleNextChirp();
     return gain;
   }
 
