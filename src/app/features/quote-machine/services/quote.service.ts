@@ -1,12 +1,17 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Quote } from '../models/quote.model';
+import { Quote, ThemeName } from '../models/quote.model';
+
+interface QuotableResponse {
+  results: Array<{ content: string; author: string }>;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuoteService {
   private http = inject(HttpClient);
+  private themes: ThemeName[] = ['cosmic', 'lofi-rain', 'noir', 'dream-neon'];
 
   readonly quotes = signal<Quote[]>([]);
   readonly currentIndex = signal<number>(0);
@@ -23,6 +28,24 @@ export class QuoteService {
   }
 
   private loadQuotes(): void {
+    this.http.get<QuotableResponse>('https://api.quotable.io/quotes?limit=50').subscribe({
+      next: (data) => {
+        const quotes = data.results.map((q, idx) => ({
+          text: q.content,
+          author: q.author.replace(/, type.*/, ''),
+          theme: this.themes[idx % this.themes.length],
+        }));
+        this.quotes.set(quotes);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.warn('Failed to fetch from API, using local quotes', err);
+        this.loadLocalQuotes();
+      },
+    });
+  }
+
+  private loadLocalQuotes(): void {
     this.http.get<Quote[]>('./assets/data/quotes.json').subscribe({
       next: (data) => {
         this.quotes.set(data);
