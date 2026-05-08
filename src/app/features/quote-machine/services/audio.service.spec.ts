@@ -47,11 +47,16 @@ describe('AudioService', () => {
     expect(service.isMuted()).toBe(false);
   });
 
-  it('should persist muted state to localStorage', () => {
+  it('should persist muted state to localStorage', (done) => {
     service.toggleMute();
-    expect(localStorage.getItem('velora-muted')).toBe('true');
-    service.toggleMute();
-    expect(localStorage.getItem('velora-muted')).toBe('false');
+    setTimeout(() => {
+      expect(localStorage.getItem('velora-muted')).toBe('true');
+      service.toggleMute();
+      setTimeout(() => {
+        expect(localStorage.getItem('velora-muted')).toBe('false');
+        done();
+      }, 0);
+    }, 0);
   });
 
   it('should accept valid track types', () => {

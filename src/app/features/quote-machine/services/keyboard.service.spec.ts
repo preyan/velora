@@ -104,12 +104,10 @@ describe('KeyboardService', () => {
     document.body.appendChild(input);
     input.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-    spyOn(event, 'preventDefault');
-    input.dispatchEvent(event);
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
+    document.dispatchEvent(event);
 
-    // The service checks if target is an input and returns early, so preventDefault should not be called
-    // But our spy is on the event itself, so it depends on implementation
+    expect(quoteService.next).not.toHaveBeenCalled();
     document.body.removeChild(input);
   });
 
@@ -119,10 +117,10 @@ describe('KeyboardService', () => {
     document.body.appendChild(textarea);
     textarea.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-    spyOn(event, 'preventDefault');
-    textarea.dispatchEvent(event);
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
+    document.dispatchEvent(event);
 
+    expect(quoteService.next).not.toHaveBeenCalled();
     document.body.removeChild(textarea);
   });
 

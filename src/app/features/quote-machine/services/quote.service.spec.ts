@@ -130,11 +130,15 @@ describe('QuoteService', () => {
   });
 
   it('should handle next() with empty quotes', () => {
+    const req = httpMock.expectOne('/assets/data/quotes.json');
+    req.flush([]);
     expect(() => service.next()).not.toThrow();
     expect(service.currentIndex()).toBe(0);
   });
 
   it('should handle previous() with empty quotes', () => {
+    const req = httpMock.expectOne('/assets/data/quotes.json');
+    req.flush([]);
     expect(() => service.previous()).not.toThrow();
     expect(service.currentIndex()).toBe(0);
   });

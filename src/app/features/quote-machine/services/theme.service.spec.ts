@@ -55,14 +55,20 @@ describe('ThemeService', () => {
     expect(service.currentTheme()).toBe('cosmic');
   });
 
-  it('should persist theme to localStorage on change', () => {
+  it('should persist theme to localStorage on change', (done) => {
     service.setTheme('noir');
-    expect(localStorage.getItem('velora-theme')).toBe('noir');
+    setTimeout(() => {
+      expect(localStorage.getItem('velora-theme')).toBe('noir');
+      done();
+    }, 0);
   });
 
-  it('should update data-theme attribute on document element', () => {
+  it('should update data-theme attribute on document element', (done) => {
     service.setTheme('lofi-rain');
-    expect(document.documentElement.getAttribute('data-theme')).toBe('lofi-rain');
+    setTimeout(() => {
+      expect(document.documentElement.getAttribute('data-theme')).toBe('lofi-rain');
+      done();
+    }, 0);
   });
 
   it('should apply initial theme to document on construction', () => {
