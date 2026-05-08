@@ -7,7 +7,7 @@
 [![ESLint](https://img.shields.io/badge/ESLint-Clean-brightgreen?style=flat-square&logo=eslint)](https://eslint.org/)
 [![Bundle Size](https://img.shields.io/badge/Bundle-81KB-brightgreen?style=flat-square)](https://github.com/preyan/velora)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Phase%203%20✓-success?style=flat-square)](https://github.com/preyan/velora)
+[![Status](https://img.shields.io/badge/Status-Phase%204%20✓-success?style=flat-square)](https://github.com/preyan/velora)
 
 **Velora** is a fullscreen, atmospheric quote app that feels like an interactive film. Every element—from animations to ambient audio—is designed to evoke emotion and intention.
 
@@ -34,13 +34,13 @@ The app should feel:
 - 🎬 **Cinematic Animations** — Blur-to-focus text, staggered author reveal
 - 🎨 **4 Themes** — Cosmic, Lo-fi Rain, Noir, Dream Neon (animated gradients)
 - 🎵 **Ambient Audio** — Rain, piano, cosmic tracks with smooth fading
+- 📸 **Screenshot Export** — Capture quotes as PNG images
+- ⌨️ **Keyboard Shortcuts** — Arrow keys (nav), T (theme), Ctrl+S (screenshot)
 - ⌨️ **Accessible** — Keyboard nav, ARIA labels, reduced-motion support ![WCAG AAA](https://img.shields.io/badge/WCAG-AAA-blue?style=flat)
 - 💾 **Persistent** — Theme & audio preferences saved to localStorage
 - 📱 **Responsive** — Mobile-first, fullscreen experience ![Mobile First](https://img.shields.io/badge/Mobile-First-brightgreen?style=flat)
 
 ### Roadmap
-- 📸 Screenshot export
-- ⚡ Keyboard shortcuts
 - 🎞️ Cinematic autoplay
 - ❤️ Save favorites
 - 🌐 Shareable URLs
@@ -195,8 +195,8 @@ Base href is `/velora/` for GitHub Pages subpath routing.
 | **1** | ✅ | Angular scaffold, QuoteService, base layout | ![Phase 1](https://img.shields.io/badge/Phase%201-Complete-success?style=flat) |
 | **2** | ✅ | Animations, backgrounds, blur-to-focus | ![Phase 2](https://img.shields.io/badge/Phase%202-Complete-success?style=flat) |
 | **3** | ✅ | Audio engine, theme switcher, controls | ![Phase 3](https://img.shields.io/badge/Phase%203-Complete-success?style=flat) |
-| **4** | ⏳ | Polish, optimization, Lighthouse tuning | ![Phase 4](https://img.shields.io/badge/Phase%204-In%20Progress-orange?style=flat) |
-| **5** | 🔮 | Testing, docs, deployment automation | ![Phase 5](https://img.shields.io/badge/Phase%205-Planned-lightgrey?style=flat) |
+| **4** | ✅ | Screenshot export, keyboard shortcuts, polish | ![Phase 4](https://img.shields.io/badge/Phase%204-Complete-success?style=flat) |
+| **5** | ⏳ | Testing, documentation, deployment automation | ![Phase 5](https://img.shields.io/badge/Phase%205-In%20Progress-orange?style=flat) |
 
 ---
 
