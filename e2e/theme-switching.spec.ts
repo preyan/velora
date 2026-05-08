@@ -5,6 +5,7 @@ test.describe('Theme Switching', () => {
 
   test('clicking theme button should cycle to next theme', async ({ page }) => {
     await page.goto('/');
+    await page.waitForTimeout(1000); // Wait for app to load
 
     const html = page.locator('html');
     const themeBtn = page.locator('[data-testid="btn-theme"]');
@@ -14,7 +15,7 @@ test.describe('Theme Switching', () => {
 
     // Click to change theme
     await themeBtn.click();
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(300);
 
     // Should be lofi-rain
     await expect(html).toHaveAttribute('data-theme', 'lofi-rain');

@@ -3,12 +3,13 @@ import { test, expect } from '@playwright/test';
 test.describe('Quote Navigation', () => {
   test('clicking next should load the next quote', async ({ page }) => {
     await page.goto('/');
+    await page.waitForTimeout(1500); // Wait for app and quotes to load
 
     const quoteText = page.locator('[data-testid="quote-text"]');
     const initialText = await quoteText.textContent();
 
     await page.locator('[data-testid="btn-next"]').click();
-    await page.waitForTimeout(1000); // Wait for animations
+    await page.waitForTimeout(1200); // Wait for animations
 
     const newText = await quoteText.textContent();
     expect(newText).not.toBe(initialText);

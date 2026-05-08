@@ -9,6 +9,8 @@ test.describe('Velora App — Initial Load', () => {
   test('should display the first quote (Steve Jobs)', async ({ page }) => {
     await page.goto('/');
     const quoteText = page.locator('[data-testid="quote-text"]');
+    // Wait for text to contain actual content (not loading placeholder)
+    await page.waitForTimeout(1000); // Wait for quote to load
     await expect(quoteText).toBeVisible();
     await expect(quoteText).toContainText('The only way to do great work');
   });

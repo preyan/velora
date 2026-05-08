@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Audio Controls', () => {
   test('mute button should toggle aria-label between Mute and Unmute', async ({ page }) => {
     await page.goto('/');
+    await page.waitForTimeout(1000); // Wait for app to load
 
     const muteBtn = page.locator('[data-testid="btn-mute"]');
 
@@ -11,14 +12,14 @@ test.describe('Audio Controls', () => {
 
     // Click mute
     await muteBtn.click();
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(300);
 
     // Should now be "Unmute audio"
     await expect(muteBtn).toHaveAttribute('aria-label', 'Unmute audio');
 
     // Click again
     await muteBtn.click();
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(300);
 
     // Should be back to "Mute audio"
     await expect(muteBtn).toHaveAttribute('aria-label', 'Mute audio');
