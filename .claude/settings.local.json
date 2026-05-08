@@ -21,7 +21,11 @@
       "Bash(git stash *)",
       "Bash(Test-Path *)",
       "Bash(gh workflow *)",
-      "Bash(gh run *)"
+      "Bash(gh run *)",
+      "Bash(gh api *)",
+      "Bash(git fetch *)",
+      "Bash(pkill -f \"ng serve\")",
+      "Bash(ng serve *)"
     ]
   }
 }

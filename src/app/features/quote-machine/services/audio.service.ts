@@ -62,7 +62,7 @@ export class AudioService {
   private setupAudioElements(): void {
     const tracks: AudioTrack[] = ['rain', 'piano', 'cosmic'];
     tracks.forEach((track) => {
-      const audio = new Audio(`/assets/audio/${track}.mp3`);
+      const audio = new Audio(`./assets/audio/${track}.mp3`);
       audio.loop = true;
       audio.crossOrigin = 'anonymous';
       this.audioElements.set(track, audio);

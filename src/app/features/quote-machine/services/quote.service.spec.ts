@@ -29,7 +29,7 @@ describe('QuoteService', () => {
   });
 
   it('should load quotes on construction', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     expect(req.request.method).toBe('GET');
 
     req.flush(mockQuotes);
@@ -42,7 +42,7 @@ describe('QuoteService', () => {
   });
 
   it('should handle HTTP error when loading quotes', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.error(new ErrorEvent('Network error'));
 
     setTimeout(() => {
@@ -53,13 +53,13 @@ describe('QuoteService', () => {
   });
 
   it('should return null for currentQuote before loading', () => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     expect(service.currentQuote()).toBeNull();
     req.flush(mockQuotes);
   });
 
   it('should return current quote after loading', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -69,7 +69,7 @@ describe('QuoteService', () => {
   });
 
   it('should navigate to next quote', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -81,7 +81,7 @@ describe('QuoteService', () => {
   });
 
   it('should wrap around to first quote when at end', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -93,7 +93,7 @@ describe('QuoteService', () => {
   });
 
   it('should navigate to previous quote', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -106,7 +106,7 @@ describe('QuoteService', () => {
   });
 
   it('should wrap around to last quote when at beginning', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -118,7 +118,7 @@ describe('QuoteService', () => {
   });
 
   it('should navigate to random quote different from current', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -132,21 +132,21 @@ describe('QuoteService', () => {
   });
 
   it('should handle next() with empty quotes', () => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush([]);
     expect(() => service.next()).not.toThrow();
     expect(service.currentIndex()).toBe(0);
   });
 
   it('should handle previous() with empty quotes', () => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush([]);
     expect(() => service.previous()).not.toThrow();
     expect(service.currentIndex()).toBe(0);
   });
 
   it('should navigate to specific index with goTo()', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -158,7 +158,7 @@ describe('QuoteService', () => {
   });
 
   it('should reject invalid index in goTo()', (done) => {
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(mockQuotes);
 
     setTimeout(() => {
@@ -173,7 +173,7 @@ describe('QuoteService', () => {
 
   it('should have single quote with random() pointing to same quote', (done) => {
     const singleQuote = [mockQuotes[0]];
-    const req = httpMock.expectOne('/assets/data/quotes.json');
+    const req = httpMock.expectOne('./assets/data/quotes.json');
     req.flush(singleQuote);
 
     setTimeout(() => {

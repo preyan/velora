@@ -23,7 +23,7 @@ export class QuoteService {
   }
 
   private loadQuotes(): void {
-    this.http.get<Quote[]>('/assets/data/quotes.json').subscribe({
+    this.http.get<Quote[]>('./assets/data/quotes.json').subscribe({
       next: (data) => {
         this.quotes.set(data);
         this.isLoading.set(false);
