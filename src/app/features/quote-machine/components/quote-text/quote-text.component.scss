@@ -1,6 +1,8 @@
 :host {
   display: block;
   will-change: filter, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .quote-text {
