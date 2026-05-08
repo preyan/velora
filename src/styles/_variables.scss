@@ -1,0 +1,66 @@
+// SCSS compile-time constants (breakpoints, z-index)
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1440px;
+
+$z-base: 1;
+$z-controls: 100;
+$z-modal: 1000;
+
+// CSS custom properties per theme
+:root {
+  // Cosmic (default)
+  --color-bg-primary: #0a0a1a;
+  --color-bg-secondary: #1a0a2e;
+  --color-text-primary: #e8e0f0;
+  --color-text-secondary: #a090c0;
+  --color-accent: #7c5cbf;
+  --gradient-start: #0a0a1a;
+  --gradient-mid: #1a0a2e;
+  --gradient-end: #0d1a2e;
+  --blur-intensity: 0px;
+  --particle-color: rgba(124, 92, 191, 0.6);
+  --font-size-quote: clamp(1.25rem, 4vw, 2.5rem);
+  --font-size-author: clamp(0.875rem, 2vw, 1.125rem);
+  --font-size-ui: clamp(0.75rem, 1.5vw, 0.875rem);
+}
+
+:root[data-theme='lofi-rain'] {
+  --color-bg-primary: #1a1a2e;
+  --color-bg-secondary: #16213e;
+  --color-text-primary: #e0e0f0;
+  --color-text-secondary: #8090b0;
+  --color-accent: #4a7fa5;
+  --gradient-start: #1a1a2e;
+  --gradient-mid: #16213e;
+  --gradient-end: #0f3460;
+  --blur-intensity: 0px;
+  --particle-color: rgba(74, 127, 165, 0.4);
+}
+
+:root[data-theme='noir'] {
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-text-primary: #e8e8e0;
+  --color-text-secondary: #909090;
+  --color-accent: #c8b87a;
+  --gradient-start: #0d0d0d;
+  --gradient-mid: #1a1a1a;
+  --gradient-end: #252525;
+  --blur-intensity: 0px;
+  --particle-color: rgba(200, 184, 122, 0.5);
+}
+
+:root[data-theme='dream-neon'] {
+  --color-bg-primary: #0d001a;
+  --color-bg-secondary: #1a003a;
+  --color-text-primary: #f0e0ff;
+  --color-text-secondary: #c090e0;
+  --color-accent: #ff4ef0;
+  --gradient-start: #0d001a;
+  --gradient-mid: #1a003a;
+  --gradient-end: #330055;
+  --blur-intensity: 0px;
+  --particle-color: rgba(255, 78, 240, 0.7);
+}

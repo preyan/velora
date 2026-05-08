@@ -1,0 +1,21 @@
+:host {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.quote-machine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+p {
+  font-size: var(--font-size-quote);
+  opacity: 0.8;
+}

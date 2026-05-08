@@ -1,0 +1,21 @@
+import { Component, OnInit, effect, inject } from '@angular/core';
+import { QuoteMachineComponent } from './features/quote-machine/components/quote-machine/quote-machine.component';
+import { ThemeService } from './features/quote-machine/services/theme.service';
+
+@Component({
+  selector: 'app-root',
+  imports: [QuoteMachineComponent],
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
+})
+export class App implements OnInit {
+  private themeService = inject(ThemeService);
+
+  ngOnInit(): void {
+    // Initialize theme on app load
+    effect(() => {
+      const theme = this.themeService.currentTheme();
+      document.documentElement.setAttribute('data-theme', theme);
+    });
+  }
+}
