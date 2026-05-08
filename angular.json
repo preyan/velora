@@ -68,6 +68,12 @@
                   "maximumError": "370kb"
                 },
                 {
+                  "type": "bundle",
+                  "name": "html2canvas",
+                  "maximumWarning": "180kb",
+                  "maximumError": "220kb"
+                },
+                {
                   "type": "anyComponentStyle",
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"

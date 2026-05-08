@@ -1,0 +1,12 @@
+<button
+  class="screenshot-btn"
+  (click)="captureScreenshot()"
+  [disabled]="isCapturing()"
+  aria-label="Download quote as image"
+>
+  @if (isCapturing()) {
+    <span class="spinner"></span>
+  } @else {
+    📸
+  }
+</button>
