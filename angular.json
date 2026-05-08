@@ -112,6 +112,22 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["public/favicon.ico", "public"],
+            "styles": [
+              "src/styles/_variables.scss",
+              "src/styles/_reset.scss",
+              "src/styles/_typography.scss",
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
         }
       }
     }
