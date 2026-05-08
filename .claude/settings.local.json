@@ -27,7 +27,8 @@
       "Bash(pkill -f \"ng serve\")",
       "Bash(ng serve *)",
       "Bash(bunx playwright *)",
-      "Bash(tee /tmp/e2e-output.txt)"
+      "Bash(tee /tmp/e2e-output.txt)",
+      "Bash(npx playwright *)"
     ]
   }
 }
