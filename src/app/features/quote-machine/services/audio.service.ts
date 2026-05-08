@@ -1,6 +1,5 @@
 import { Injectable, signal, effect } from '@angular/core';
-
-export type AudioTrack = 'rain' | 'piano' | 'cosmic';
+import { ProceduralAudioGenerator, AudioTrack } from './procedural-audio';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +7,8 @@ export type AudioTrack = 'rain' | 'piano' | 'cosmic';
 export class AudioService {
   private context: AudioContext | null = null;
   private gainNode: GainNode | null = null;
-  private audioElements = new Map<AudioTrack, HTMLAudioElement>();
-  private currentSourceNode: MediaElementAudioSourceNode | null = null;
+  private generator: ProceduralAudioGenerator | null = null;
+  private currentTrackNode: AudioNode | null = null;
   private isInitialized = false;
 
   readonly isMuted = signal<boolean>(
@@ -48,30 +47,61 @@ export class AudioService {
       this.context = new AudioContextClass();
       this.gainNode = this.context.createGain();
       this.gainNode.connect(this.context.destination);
-
-      // Set initial gain based on mute state
       this.gainNode.gain.value = this.isMuted() ? 0 : 1;
 
+      this.generator = new ProceduralAudioGenerator(this.context);
       this.isInitialized = true;
-      this.setupAudioElements();
+      this.setupProceduralAudio();
     } catch (err) {
       console.error('Failed to initialize AudioContext', err);
     }
   }
 
-  private setupAudioElements(): void {
-    const tracks: AudioTrack[] = ['rain', 'piano', 'cosmic'];
-    tracks.forEach((track) => {
-      const audio = new Audio(`./assets/audio/${track}.mp3`);
-      audio.loop = true;
-      audio.crossOrigin = 'anonymous';
-      this.audioElements.set(track, audio);
+  private setupProceduralAudio(): void {
+    if (!this.generator || !this.gainNode) return;
 
-      if (this.context && !this.currentSourceNode) {
-        this.currentSourceNode = this.context.createMediaElementSource(audio);
-        this.currentSourceNode.connect(this.gainNode!);
-      }
-    });
+    const track = this.currentTrack();
+    const masterGain = this.generator.getMasterGain();
+    masterGain.connect(this.gainNode);
+
+    this.currentTrackNode = this.generateTrack(track);
+  }
+
+  private generateTrack(track: AudioTrack): AudioNode {
+    if (!this.generator) throw new Error('Generator not initialized');
+
+    switch (track) {
+      case 'rain':
+        return this.generator.createRain();
+      case 'wind':
+        return this.generator.createWind();
+      case 'ocean':
+        return this.generator.createOcean();
+      case 'forest':
+        return this.generator.createForest();
+      case 'stream':
+        return this.generator.createStream();
+      case 'birds':
+        return this.generator.createBirds();
+      case 'piano':
+        return this.generator.createPiano();
+      case 'bells':
+        return this.generator.createBells();
+      case 'meditation':
+        return this.generator.createMeditation();
+      case 'fireplace':
+        return this.generator.createFireplace();
+      case 'drone':
+        return this.generator.createDrone();
+      case 'cosmic':
+        return this.generator.createCosmic();
+      case 'aurora':
+        return this.generator.createAurora();
+      case 'nebula':
+        return this.generator.createNebula();
+      case 'thunder':
+        return this.generator.createThunder();
+    }
   }
 
   play(): void {
@@ -80,24 +110,13 @@ export class AudioService {
       return;
     }
 
-    const track = this.currentTrack();
-    const audio = this.audioElements.get(track);
-    if (!audio) return;
-
-    audio.play().catch((err) => console.error('Failed to play audio', err));
     this.isPlaying.set(true);
     this.fade(this.isMuted() ? 0 : 1, 0.5);
   }
 
   stop(): void {
-    const track = this.currentTrack();
-    const audio = this.audioElements.get(track);
-    if (!audio) return;
-
     this.fade(0, 0.5);
     setTimeout(() => {
-      audio.pause();
-      audio.currentTime = 0;
       this.isPlaying.set(false);
     }, 500);
   }
@@ -112,17 +131,14 @@ export class AudioService {
   }
 
   switchTrack(track: AudioTrack): void {
-    if (this.currentTrack() === track) return;
+    if (this.currentTrack() === track || !this.isInitialized) return;
 
-    const isWasPlaying = this.isPlaying();
-    this.stop();
+    const wasPlaying = this.isPlaying();
+    this.currentTrack.set(track);
 
-    setTimeout(() => {
-      this.currentTrack.set(track);
-      if (isWasPlaying) {
-        this.play();
-      }
-    }, 500);
+    if (wasPlaying) {
+      this.fade(this.isMuted() ? 0 : 1, 0.5);
+    }
   }
 
   private fade(targetGain: number, duration = 0.5): void {
