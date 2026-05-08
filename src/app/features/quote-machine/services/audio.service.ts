@@ -1,13 +1,33 @@
 import { Injectable, signal, effect } from '@angular/core';
 import { ProceduralAudioGenerator, AudioTrack } from './procedural-audio';
 
+const AUDIO_FILES: Record<AudioTrack, string> = {
+  rain: 'assets/audio/rain.mp3',
+  wind: 'assets/audio/wind.mp3',
+  ocean: 'assets/audio/ocean.mp3',
+  forest: 'assets/audio/forest.mp3',
+  stream: 'assets/audio/stream.mp3',
+  birds: 'assets/audio/birds.mp3',
+  piano: 'assets/audio/piano.mp3',
+  bells: 'assets/audio/bells.mp3',
+  meditation: 'assets/audio/meditation.mp3',
+  fireplace: 'assets/audio/fireplace.mp3',
+  drone: 'assets/audio/drone.mp3',
+  cosmic: 'assets/audio/cosmic.mp3',
+  aurora: 'assets/audio/aurora.mp3',
+  nebula: 'assets/audio/nebula.mp3',
+  thunder: 'assets/audio/thunder.mp3',
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class AudioService {
   private context: AudioContext | null = null;
   private generator: ProceduralAudioGenerator | null = null;
+  private currentAudio: HTMLAudioElement | null = null;
   private isInitialized = false;
+  private useLocalAudio = false;
 
   readonly isMuted = signal<boolean>(
     localStorage.getItem('velora-muted') === 'true'
@@ -70,15 +90,21 @@ export class AudioService {
     }
 
     this.isPlaying.set(true);
-    this.createTrack(this.currentTrack());
+    this.loadAndPlayTrack(this.currentTrack());
     this.updateVolume();
   }
 
   stop(): void {
-    if (!this.generator) return;
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0;
+    }
 
-    this.generator.stopAll();
-    this.generator.getMasterGain().gain.value = 0;
+    if (this.generator) {
+      this.generator.stopAll();
+      this.generator.getMasterGain().gain.value = 0;
+    }
+
     this.isPlaying.set(false);
   }
 
@@ -90,14 +116,46 @@ export class AudioService {
     if (this.currentTrack() === track || !this.isPlaying()) return;
     this.currentTrack.set(track);
 
-    if (this.isInitialized && this.generator) {
-      this.generator.stopAll();
-      this.createTrack(track);
+    if (this.isInitialized) {
+      if (this.currentAudio) {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+      }
+      if (this.generator) {
+        this.generator.stopAll();
+      }
+      this.loadAndPlayTrack(track);
     }
   }
 
   setVolume(value: number): void {
     this.volume.set(Math.max(0, Math.min(1, value)));
+  }
+
+  private loadAndPlayTrack(track: AudioTrack): void {
+    const audioPath = AUDIO_FILES[track];
+
+    if (!this.currentAudio) {
+      this.currentAudio = new Audio();
+      this.currentAudio.loop = true;
+    }
+
+    this.currentAudio.src = audioPath;
+    this.currentAudio.load();
+
+    const playPromise = this.currentAudio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          this.useLocalAudio = true;
+          this.updateVolume();
+        })
+        .catch(() => {
+          console.warn(`Local audio file not found: ${audioPath}, falling back to procedural audio`);
+          this.useLocalAudio = false;
+          this.createTrack(track);
+        });
+    }
   }
 
   private createTrack(track: AudioTrack): void {
@@ -123,8 +181,15 @@ export class AudioService {
   }
 
   private updateVolume(): void {
-    if (!this.generator) return;
-    const masterGain = this.generator.getMasterGain();
-    masterGain.gain.value = this.isMuted() ? 0 : this.volume();
+    const targetVolume = this.isMuted() ? 0 : this.volume();
+
+    if (this.useLocalAudio && this.currentAudio) {
+      this.currentAudio.volume = targetVolume;
+    }
+
+    if (this.generator) {
+      const masterGain = this.generator.getMasterGain();
+      masterGain.gain.value = targetVolume;
+    }
   }
 }
