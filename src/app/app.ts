@@ -1,10 +1,11 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { QuoteMachineComponent } from './features/quote-machine/components/quote-machine/quote-machine.component';
+import { VersionBadgeComponent } from './shared/components/version-badge/version-badge.component';
 import { ThemeService } from './features/quote-machine/services/theme.service';
 
 @Component({
   selector: 'app-root',
-  imports: [QuoteMachineComponent],
+  imports: [QuoteMachineComponent, VersionBadgeComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
