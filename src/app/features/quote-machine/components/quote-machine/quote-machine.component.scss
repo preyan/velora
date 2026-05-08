@@ -26,12 +26,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   padding: 2rem;
   position: relative;
   z-index: 50;
   background: linear-gradient(to top, var(--color-bg-primary), transparent);
   padding-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.controls-quote {
+  display: flex;
+  gap: 2rem;
 }
 
 .control-btn {

@@ -3,10 +3,13 @@
 <app-quote-display [quote]="quoteService.currentQuote()"></app-quote-display>
 
 <div class="controls">
-  <button class="control-btn" (click)="previous()" aria-label="Previous quote">
-    ← Prev
-  </button>
-  <button class="control-btn" (click)="next()" aria-label="Next quote">
-    Next →
-  </button>
+  <div class="controls-quote">
+    <button class="control-btn" (click)="previous()" aria-label="Previous quote">
+      ← Prev
+    </button>
+    <button class="control-btn" (click)="next()" aria-label="Next quote">
+      Next →
+    </button>
+  </div>
+  <app-controls></app-controls>
 </div>
