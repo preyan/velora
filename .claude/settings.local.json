@@ -28,7 +28,12 @@
       "Bash(ng serve *)",
       "Bash(bunx playwright *)",
       "Bash(tee /tmp/e2e-output.txt)",
-      "Bash(npx playwright *)"
+      "Bash(npx playwright *)",
+      "PowerShell(Get-Process *)",
+      "Bash(netstat -ano)",
+      "Bash(cp -r public/assets/data/* src/assets/data/)",
+      "Bash(cp -r public/assets/audio/* src/assets/audio/)",
+      "Bash(pkill -f \"node|ng|bun\")"
     ]
   }
 }
