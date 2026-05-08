@@ -53,3 +53,7 @@ $RECYCLE.BIN/
 .Spotlight-V100
 .Trashes
 ehthumbs.db
+
+# Playwright
+/test-results/
+/playwright-report/

@@ -1,18 +1,18 @@
 <div class="audio-controls">
-  <button class="audio-btn" (click)="toggleMute()" [attr.aria-label]="audioService.isMuted() ? 'Unmute audio' : 'Mute audio'">
+  <button class="audio-btn" data-testid="btn-mute" (click)="toggleMute()" [attr.aria-label]="audioService.isMuted() ? 'Unmute audio' : 'Mute audio'">
     {{ audioService.isMuted() ? '🔇' : '🔊' }}
   </button>
-  <select class="audio-select" [value]="audioService.currentTrack()" (change)="onTrackChange($event)" [disabled]="!audioService.isPlaying()">
+  <select class="audio-select" data-testid="select-track" [value]="audioService.currentTrack()" (change)="onTrackChange($event)" [disabled]="!audioService.isPlaying()">
     <option value="rain">Rain</option>
     <option value="piano">Piano</option>
     <option value="cosmic">Cosmic</option>
   </select>
   @if (!audioService.isPlaying()) {
-    <button class="audio-btn" (click)="playAudio()" aria-label="Play ambient audio">
+    <button class="audio-btn" data-testid="btn-play" (click)="playAudio()" aria-label="Play ambient audio">
       ▶
     </button>
   } @else {
-    <button class="audio-btn" (click)="stopAudio()" aria-label="Stop ambient audio">
+    <button class="audio-btn" data-testid="btn-stop" (click)="stopAudio()" aria-label="Stop ambient audio">
       ⏸
     </button>
   }

@@ -25,7 +25,8 @@
       "Bash(gh api *)",
       "Bash(git fetch *)",
       "Bash(pkill -f \"ng serve\")",
-      "Bash(ng serve *)"
+      "Bash(ng serve *)",
+      "Bash(bunx playwright *)"
     ]
   }
 }
