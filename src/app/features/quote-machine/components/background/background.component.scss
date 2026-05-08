@@ -22,9 +22,11 @@
   );
   background-size: 400% 400%;
   animation: gradientDrift 20s ease infinite;
+  transition: background 8s ease-in-out;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
+    transition: none;
   }
 }
 

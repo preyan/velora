@@ -33,7 +33,8 @@
       "Bash(netstat -ano)",
       "Bash(cp -r public/assets/data/* src/assets/data/)",
       "Bash(cp -r public/assets/audio/* src/assets/audio/)",
-      "Bash(pkill -f \"node|ng|bun\")"
+      "Bash(pkill -f \"node|ng|bun\")",
+      "Bash(git rm *)"
     ]
   }
 }
