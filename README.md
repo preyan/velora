@@ -7,7 +7,7 @@
 [![ESLint](https://img.shields.io/badge/ESLint-Clean-brightgreen?style=flat-square&logo=eslint)](https://eslint.org/)
 [![Bundle Size](https://img.shields.io/badge/Bundle-81KB-brightgreen?style=flat-square)](https://github.com/preyan/velora)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Phase%205%20✓-success?style=flat-square)](https://github.com/preyan/velora)
+[![Status](https://img.shields.io/badge/Status-Phase%205-success?style=flat-square)](https://github.com/preyan/velora)
 
 **Velora** is a fullscreen, atmospheric quote app that feels like an interactive film. Every element—from animations to ambient audio—is designed to evoke emotion and intention.
 
