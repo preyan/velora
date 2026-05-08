@@ -21,6 +21,8 @@
     var(--gradient-end) 100%
   );
   background-size: 400% 400%;
+  background-position: center;
+  background-attachment: fixed;
   animation: gradientDrift 20s ease infinite;
   transition: background 8s ease-in-out;
 

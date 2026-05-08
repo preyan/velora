@@ -1,2 +1,5 @@
-<div class="background-gradient" [style.backgroundImage]="currentSlide().gradient"></div>
+<div
+  class="background-gradient"
+  [style.backgroundImage]="currentSlide().imageUrl ? 'url(' + currentSlide().imageUrl + ')' : currentSlide().gradient"
+></div>
 <div class="background-overlay"></div>
